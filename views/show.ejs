@@ -1,0 +1,62 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/chyrka.css">
+</head>
+<body>
+    <div class="recipe-container">
+        <div class="recipe-image">
+            <img src="/img/users/<%= recipe.img %>" alt="">
+        </div>
+        <p class="recipe-title"><%= recipe.title %></p>
+        <p class="recipe-description"><%= recipe.desc %></p>
+    </div>
+</body>
+</html>
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style-show.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <span class="logo">Bevern</span>
+            <ul>
+                <li><a href="/recipes">Order now</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="#">Story</a></li>
+                <li><a href="#">Visit</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="recipe-container">
+        <div class="recipe-img">
+            <img src="/img/users/<%= recipe.img %>" alt="">
+        </div>
+        <div class="recipe-title">
+            <p><%= recipe.title %></p>
+        </div>
+        <div class="recipe-description">
+            <p><%= recipe.desc %></p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

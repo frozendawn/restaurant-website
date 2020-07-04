@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style-recipes.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <span class="logo">Bevern</span>
+            <ul>
+                <li><a href="/recipes">Order now</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="#">Story</a></li>
+                <li><a href="#">Visit</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+
+
+
+
+    <div class="all-recipes">
+       <!--  <div class="recipe-container">
+            <div class="recipe-image">
+                <img src="./img/pizza-3870778__340.jpg" alt="">
+            </div>
+            <p class="recipe-title">pizza</p>
+        </div>
+
+        <div class="recipe-container">
+            <div class="recipe-image">
+                <img src="./img/pizza-3870778__340.jpg" alt="">
+            </div>
+            <p class="recipe-title">pizza</p>
+        </div>
+
+        <div class="recipe-container">
+            <div class="recipe-image">
+                <img src="./img/pizza-3870778__340.jpg" alt="">
+            </div>
+            <p class="recipe-title">pizza</p>
+        </div>
+
+        <div class="recipe-container">
+            <div class="recipe-image">
+                <img src="./img/pizza-3870778__340.jpg" alt="">
+            </div>
+            <p class="recipe-title">pizza</p>
+        </div>
+
+        <div class="recipe-container">
+            <div class="recipe-image">
+                <img src="./img/pizza-3870778__340.jpg" alt="">
+            </div>
+            <p class="recipe-title">pizza</p>
+        </div> -->
+
+        <% recipes.forEach(el => { %>
+            <div class="recipe-container">
+                <div class="recipe-image">
+                    <img src="/img/users/<%= el.img %>" alt="">
+                </div>
+                <p class="recipe-title"><%= el.title %></p>
+                <a href="/recipes/<%=el._id%>">read more</a>
+            </div>
+        <%}) %>
+
+    </div>
+    <a href="/newRecipe">add new</a>
+</body>
+</html>
