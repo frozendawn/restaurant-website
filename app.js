@@ -1,9 +1,16 @@
 const express = require('express');
+const flash = require('express-flash');
+const session = require("express-session");
 const bodyParser = require('body-parser')
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const ejs = require('ejs');
 const multer = require('multer');
 const validator = require('validator');
+const bcrypt = require('bcrypt');
+
+const User = require('./models/User')
 
 
 const app = express();
@@ -32,11 +39,110 @@ const upload = multer({
     fileFilter: multerFilter
 });
 
+//database connection
 mongoose.connect("mongodb://localhost/restaurant-v3",{ useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set('view engine','ejs');
+
+
+//authentication middleware setup 
+
+app.use(flash());
+app.use(session({ secret: "cats",
+resave: false,
+saveUninitialized: false 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
+
+//authentication
+passport.serializeUser(function(user, done) {
+    console.log('serialize')
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser(function(id, done) {
+    console.log('deserialize')
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
+
+  passport.use(new LocalStrategy(
+    async function(username, password, done) {
+
+      try {
+        const user = await User.findOne({username:username});
+        console.log(user);
+        if (user===null) {
+            return done(null,false,{message: 'No user found with that username'})
+        }
+        if (await !bcrypt.compare(password,user.password)) {
+            return done(null,false, { message: 'incorrect password'});
+          }else{
+            return done(null, user);
+        }
+      } catch (error) {
+        console.log(error)
+      }
+        
+    }
+  ));
+
+  //authentication middleware
+  function isLoggedIn(req,res,next) {
+
+    console.log('before if')
+  if(req.isAuthenticated()){
+    console.log('alo da')
+      return next();
+  }else {
+    console.log('alo ne')
+    res.redirect('/login')
+  } 
+   
+}
+
+app.get('/register',(req,res)=>{
+    res.render('register')
+})
+
+app.post('/register',async (req,res) => {
+    try {
+        const newUser = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+            passwordConfirm: req.body.passwordConfirm
+        });
+        res.redirect('/login')
+
+    } catch(err) {
+        console.log(err)
+        res.redirect('/register')
+    }
+});
+
+app.get('/login',(req,res)=>{
+    res.render('login');
+})
+
+app.post('/login', passport.authenticate('local', { 
+  successRedirect: '/recipes',
+  failureRedirect: '/login',
+  failureFlash: true 
+}));
+
+app.get('/logout',(req,res) => {
+  req.logout();
+  res.redirect('/')
+})
 
 
 //recipe schema
@@ -54,7 +160,7 @@ app.get('/',function(req,res){
     
 })
 
-app.get('/recipes', (req,res) => {
+app.get('/recipes',isLoggedIn, (req,res) => {
 
     Recipe.find({},(err,allRecipes) => {
        if(err){
