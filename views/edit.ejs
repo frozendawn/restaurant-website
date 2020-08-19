@@ -7,14 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="newrecipe-container">
-
-        <h1>Add new recipe</h1>
-        <form action="/newRecipe" method="POST" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder="title">
-            <input type="text" name="description" placeholder="description">
+    <div class="editrecipe-container">
+        <h1>Edit <%= recipe.title %></h1>
+        <form action="/recipes/<%=recipe._id%>/?_method=PUT" method="POST" enctype="multipart/form-data">
+            <input type="text" name="title" value="<%= recipe.title %>">
+            <input type="text" name="description" value="<%= recipe.desc %>">
             <input type="file" name="img" accept="image/*">
-            <a href="/recipes">Go Back?</a>
+            <a href="/recipes/<%= recipe._id %>">Go Back?</a>
             <input type="submit" name="submit" value="submit">
         </form>
     </div>

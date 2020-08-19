@@ -84,3 +84,35 @@ ul li a:hover {
     animation-duration: 0.3s;
     color: orange;
 }
+
+.options {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-end;
+}
+
+.btn-green {
+    color: #fff;
+    text-decoration: none;
+    background: #67B826;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    }
+
+    .btn-red {
+    color: #fff;
+    text-decoration: none;
+    background: #ed3330;
+    padding: 10px;
+    height: 100%;
+    margin-left: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    }
+
+.btn-red:hover {
+    cursor: pointer;
+}

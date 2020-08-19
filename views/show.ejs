@@ -51,7 +51,16 @@
         <div class="recipe-description">
             <p><%= recipe.desc %></p>
         </div>
+
+        <div class="options">
+            <a class="btn-green" href="/recipes/<%= recipe._id %>/edit">Edit</a>
+            <form action="/recipes/<%=recipe._id%>?_method=DELETE" method="POST">
+                <button class="btn-red">Delete</button>
+            </form>
+        </div>
+        
     </div>
+
 </body>
 </html>
 

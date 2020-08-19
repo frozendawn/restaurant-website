@@ -9,6 +9,7 @@ const ejs = require('ejs');
 const multer = require('multer');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const methodOverride = require('method-override')
 
 const User = require('./models/User')
 
@@ -40,10 +41,13 @@ const upload = multer({
 });
 
 //database connection
-mongoose.connect("mongodb://localhost/restaurant-v3",{ useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/restaurant-v3-auth",{ useNewUrlParser: true });
+mongoose.set('useFindAndModify', false);
+
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
+app.use(methodOverride("_method"))
 app.set('view engine','ejs');
 
 
@@ -63,12 +67,10 @@ app.use(passport.session());
 
 //authentication
 passport.serializeUser(function(user, done) {
-    console.log('serialize')
     done(null, user.id);
   });
   
   passport.deserializeUser(function(id, done) {
-    console.log('deserialize')
     User.findById(id, function(err, user) {
       done(err, user);
     });
@@ -77,17 +79,19 @@ passport.serializeUser(function(user, done) {
   passport.use(new LocalStrategy(
     async function(username, password, done) {
 
-      try {
+      
         const user = await User.findOne({username:username});
-        console.log(user);
         if (user===null) {
             return done(null,false,{message: 'No user found with that username'})
         }
-        if (await !bcrypt.compare(password,user.password)) {
-            return done(null,false, { message: 'incorrect password'});
-          }else{
+        try {
+        if (await bcrypt.compare(password,user.password)) {
             return done(null, user);
-        }
+          } else {
+            return done(null,false, { message: 'incorrect password'});
+          }
+
+        
       } catch (error) {
         console.log(error)
       }
@@ -97,13 +101,9 @@ passport.serializeUser(function(user, done) {
 
   //authentication middleware
   function isLoggedIn(req,res,next) {
-
-    console.log('before if')
   if(req.isAuthenticated()){
-    console.log('alo da')
       return next();
   }else {
-    console.log('alo ne')
     res.redirect('/login')
   } 
    
@@ -193,7 +193,7 @@ app.post('/newRecipe',upload.single('img'),function(req,res){
         if (err) { 
             console.log(err);
         }else {
-            res.redirect('/') 
+            res.redirect('/recipes') 
             
             console.log('successfully saved ' + recipe)
         }
@@ -214,6 +214,45 @@ app.get('/recipes/:id',function(req,res){
         }
     })
 })
+
+//edit recipe route
+app.get('/recipes/:id/edit',function(req,res){
+    Recipe.findById(req.params.id,function(err,foundRecipe){
+        if(err){
+            console.log(err);
+            res.redirect('/recipes');
+        }else{
+            res.render('edit',{recipe:foundRecipe});
+        }
+    })
+})
+//update recipe route
+app.put("/recipes/:id/",upload.single('img'),function(req,res){
+    const updatedRecipe = {
+        title: req.body.title,
+        desc: req.body.description,
+        img: req.file.filename
+    }
+
+    Recipe.findByIdAndUpdate(req.params.id,updatedRecipe,(err,updatedRecipe) => {
+        if(err){
+            res.redirect("/recipes")
+        } else {
+            res.redirect("/recipes/" + req.params.id);
+        }
+    })
+})
+
+//Destroy route
+app.delete('/recipes/:id',(req,res) => {
+    Recipe.findByIdAndRemove(req.params.id,(err) => {
+        if(err){
+            console.log(err)
+        }else {
+            res.redirect('/recipes')
+        }
+    })
+});
 
 //gallery route
 

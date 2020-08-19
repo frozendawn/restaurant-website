@@ -6,16 +6,18 @@
 
 
 .all-recipes {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     margin:2% 15%;
 }
 
 .recipe-container {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
+    
     /* overflow: hidden; */
     margin:5px;  
     height: 298px;
@@ -34,7 +36,7 @@
 }
 
 .recipe-title {
-    border: 1px solid pink;
+    /* border: 1px solid pink; */
 
 }
 
