@@ -1,3 +1,108 @@
 * {
-box-sizing:border-box
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+  }
+
+
+.editrecipe-container {
+    display: flex;
+
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+h1 {
+    margin-bottom: 60px;
+    color: #403866;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid yellow; */
+    width: 368px;
+    
+}
+
+input {
+    height: 50px;
+    width: 100%;
+    margin-top: 10px;
+    
+}
+
+form input[type=text] {
+    border-radius: 3px;
+    border: none;
+    background-color: #e6e6e6;
+    color: #403866;
+    padding-left: 20px;
+}
+
+form input[type=text]::placeholder {
+    color: #403866 ;
+}
+
+
+form input[type=password] {
+    border-radius: 3px;
+    border: none;
+    background-color: #e6e6e6;
+    color: #403866;
+    padding-left: 20px;
+}
+
+form input[type=password]::placeholder {
+    color: #403866 ;
+}
+
+form input[type=submit] {
+    border-radius: 3px;
+    border: none;
+    background-color: #827ffe;
+    color: #fff;
+    transition: 0.5s;
+}
+
+form input[type=submit]:hover {
+    cursor: pointer;
+    /* animation-name: switchColor;
+    animation-duration: 0.5s; */
+    background-color: #403866;
+    transition: background-color 0.5s;
+    /* animation: switchColor 0.5s ease-out; */
+}
+
+input:focus {
+    outline-width: .5px;
+    outline-style: solid;
+    outline-color: #827ffe;
+}
+
+a {
+    display: flex;
+    align-self: flex-end;
+    text-decoration: none;
+    margin: 10px 0;
+    color: #827ffe;
+}
+
+@keyframes switchColor {
+    0% {
+        background-color: #827ffe;
+    }
+
+    100% {
+        background-color: #403866;
+    }
 }
