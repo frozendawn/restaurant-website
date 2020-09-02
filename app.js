@@ -52,7 +52,6 @@ app.set('view engine','ejs');
 
 
 //authentication middleware setup 
-
 app.use(flash());
 app.use(session({ secret: "cats",
 resave: false,
@@ -60,9 +59,6 @@ saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-
 
 
 //authentication
@@ -101,11 +97,11 @@ passport.serializeUser(function(user, done) {
 
   //authentication middleware
   function isLoggedIn(req,res,next) {
-  if(req.isAuthenticated()){
-      return next();
-  }else {
-    res.redirect('/login')
-  } 
+    if(req.isAuthenticated()){
+        return next();
+    }else {
+        res.redirect('/login')
+    } 
    
 }
 
@@ -264,7 +260,7 @@ app.all('*',(req,res,next) => {
     /* const err = new Error (`Can't find ${req.originalUrl} on this server`);
     err.status = 'fail';
     err.statusCode = 404; */
-
+    
   res.render('404page');
 })
 
