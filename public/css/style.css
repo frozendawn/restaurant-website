@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* body {
+    background-image: url("./img/food-712665_1920.jpg");
+} */
+
+.body-backgroundImage-default {
+    background-image: url("../img/food-712665_1920.jpg");
+    background-size: cover;
+    transition: background-image 0.2s ease-in;
+}
+
+.body-backgroundImage-eat {
+    background-image: url("../img/blur-breakfast-chef-cooking-262978.jpg");
+    background-size: cover;
+    transition: background-image 0.2s ease-in;
+}
+
+.body-backgroundImage-drink {
+    background-image: url("../img/blur-close-up-cutlery-dining-370984.jpg");
+    background-size: cover;
+    transition: background-image 0.2s ease-in;
+}
+
+.body-backgroundImage-visit {
+    background-image: url("../img/table-in-vintage-restaurant-6267.jpg");
+    background-size: cover;
+    transition: background-image 0.2s ease-in;
+}
+
+header {
+    display: flex;
+    padding: 60px 5%;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-size: 21px;
+    font-weight:400;
+    cursor: pointer;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+}
+
+ul li a {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    
+}
+
+ul li a:hover {
+    animation-name: changeColorOrange;
+    animation-duration: 0.3s;
+    color: orange;
+}
+
+.home-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 60vh;
+}
+
+.bevern-street {
+    text-align: center;
+}
+
+.bevern-street p {
+    font-family: 'Cinzel', serif;
+    font-size:20px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+}
+
+.navigation a {
+    font-family: 'Cinzel', serif;
+    text-decoration: none;
+    font-size: 106px;
+    color: #fff;
+    margin-left: 150px;
+}
+
+.bevern-eat a:hover {
+    border-bottom: 1px solid white;
+    
+}
+
+.bevern-drink a:hover {
+    border-bottom: 1px solid white;
+    
+}
+
+.bevern-visit a:hover {
+    border-bottom: 1px solid white;
+    
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes changeColorOrange {
+    
+    0% {
+        color: #fff;
+    }
+
+    100% {
+        color: orange;
+    }
+}
