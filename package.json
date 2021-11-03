@@ -29,7 +29,7 @@
     "streamsearch": "^0.1.2",
     "string_decoder": "^1.1.1",
     "supports-color": "^5.5.0",
-    "validator": "^13.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {},
   "scripts": {
